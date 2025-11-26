@@ -185,14 +185,20 @@ class WebGPUTextureUtils {
 		if ( texture.isVideoTexture ) {
 
 			const video = texture.source.data;
-			const videoFrame = new VideoFrame( video );
+			console.log("Check video frame",video);
+			try{
+				const videoFrame = new VideoFrame( video );
 
-			textureDescriptorGPU.size.width = videoFrame.displayWidth;
-			textureDescriptorGPU.size.height = videoFrame.displayHeight;
+				textureDescriptorGPU.size.width = videoFrame.displayWidth;
+				textureDescriptorGPU.size.height = videoFrame.displayHeight;
 
-			videoFrame.close();
+				videoFrame.close();
 
-			textureData.externalTexture = video;
+				textureData.externalTexture = video;
+			}
+			catch(err){
+				console.error(err, video);
+			}
 
 		} else {
 
